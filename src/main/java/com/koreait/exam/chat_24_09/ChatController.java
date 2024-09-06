@@ -1,6 +1,7 @@
 package com.koreait.exam.chat_24_09;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,19 +15,15 @@ public class ChatController {
 
     private List<ChatMessage> chatMessages = new ArrayList<>();
 
-//    @AllArgsConstructor
-//    @Getter
-//    public static class writeMessageRequest {
-//        private final String authorName;
-//        private final String content;
-//    }
-
     public record writeMessageRequest(String authorName, String content) {
     }
 
 
     public record writeMessageResponse(long id) {
+    }
 
+
+    public record messagesResponse(List<ChatMessage> chatMessages, long count) {
     }
 
 
@@ -45,10 +42,10 @@ public class ChatController {
 
     @GetMapping("/messages")
     @ResponseBody
-    public RsData<List<ChatMessage>> messages() {
+    public RsData<messagesResponse> messages() {
         return new RsData<>("S-1",
                 "성공",
-                chatMessages
+                new messagesResponse(chatMessages, chatMessages.size())
         );
     }
 }
