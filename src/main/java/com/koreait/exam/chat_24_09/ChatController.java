@@ -1,5 +1,6 @@
 package com.koreait.exam.chat_24_09;
 
+import ch.qos.logback.core.model.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -23,6 +24,11 @@ public class ChatController {
 
 
     public record writeMessageResponse(long id) {
+    }
+
+    @GetMapping("/room")
+    public String showRoom() {
+        return "chat/room";
     }
 
 
